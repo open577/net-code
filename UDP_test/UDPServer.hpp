@@ -64,7 +64,7 @@ public:
                 int peer_port = ntohs(local.sin_port);           // 从网络中拿到的！网络序列
                 std::string peer_ip = inet_ntoa(local.sin_addr); // 4字节网络风格的IP -> 点分十进制的字符串风格的IP
                 std::string result = _func(buffer);
-                std::cout<<buffer<<std::endl;
+                std::cout<<"["<<peer_ip<<" "<<peer_port<<"] #"<<buffer<<std::endl;
                 ssize_t n = sendto(_sockfd, result.c_str(), result.size(), 0, (struct sockaddr *)&local, len);
             }
         }
