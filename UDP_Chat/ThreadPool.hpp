@@ -131,7 +131,8 @@ namespace ThreadPoolMoudle
             {
                 LockGrund lock(_mutex);
                 _taskq.push(in);
-                if (_taskq.size() == _sleepnum)
+                // if (_taskq.size() == _sleepnum)
+                if (!_taskq.empty()&& _sleepnum)
                 {
                     WakeUpOneThread();
                 }

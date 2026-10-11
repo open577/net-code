@@ -23,21 +23,18 @@ int main(int argc, char *argv[])
 
     int port = std::stoi(argv[1]);
     Enable_Console_Log_Strategy();
-    auto tp = ThreadPool<task_t>::GetInstance();
-    // std::unique_ptr<Udpserver> mm =std::make_unique<Udpserver>(port,defaultheader);
-    // mm->Init();
-    // mm->Start();
-
     Route r;
     // std::unique_ptr<Udpserver> usvr = std::make_unique<Udpserver>(
-    //     port, [&r,tp](int sockfd, const std::string &message, InetAddr &peer)
-    //     { r.MessageRoute(sockfd, message, peer);
-    //     tp->Enqueue()});
+    //     port, [&r](int sockfd, const std::string &message, InetAddr &peer)
+    //     { r.MessageRoute(sockfd, message, peer); });
 
-    std::unique_ptr<Udpserver> usvr = std::make_unique<Udpserver>(port, [&r, &tp](int sockfd, const std::string &message, InetAddr &peer)
-                                                                  {
+        auto tp = ThreadPool<task_t>::GetInstance();
+
+    // 3. 网络服务器对象，提供通信功能
+    std::unique_ptr<Udpserver> usvr = std::make_unique<Udpserver>(port, [&r, &tp](int sockfd, const std::string &message, InetAddr&peer){
         task_t t = std::bind(&Route::MessageRoute, &r, sockfd, message, peer);
-        tp->Enqueue(t); });
+        tp->Enqueue(t);
+    });
 
     usvr->Init();
     usvr->Start();

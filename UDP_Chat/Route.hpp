@@ -48,7 +48,7 @@ public:
             UserAdd(client);
         }
 
-        std::string prevname = client.FullName() + mes;
+        std::string prevname = client.FullName()+" " + mes;
 
         // 发送消息
         for (auto &user : _online_user)
