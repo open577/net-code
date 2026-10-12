@@ -69,7 +69,6 @@ public:
             }
         }
     }
-
 private:
     int _sockfd;
     uint32_t _port;
