@@ -1,10 +1,21 @@
-.PHONY:all
-all:udpserver udpclient
-udpserver:UDPServer.cc
-	g++ UDPServer.cc -o udpserver -g
-udpclient:UDPClient.cc
-	g++ UDPClient.cc -o udpclient -g
+# .PHONY:all
+# 	all:tcpserver tcpclient
+# tcpserver:TCPServer.cc
+# 	g++ TCPServer.cc -o tcpserver -g
+# tcpclient:TCPClient.cc
+# 	g++ TCPClient.cc -o tcpclient -g
 
-.PHONY:clean
+# .PHONY:clean
+# clean:
+# 	rm -rf tcpserver tcpclient
+.PHONY: all clean
+all: tcpserver tcpclient
+
+tcpserver: TCPServer.cc
+	g++ TCPServer.cc -o tcpserver -g
+
+tcpclient: TCPClient.cc
+	g++ TCPClient.cc -o tcpclient -g
+
 clean:
-	rm -rf udpclient udpserver
+	rm -f tcpserver tcpclient
