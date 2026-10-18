@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Developer Home</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f1419'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%234ecdc4' font-family='monospace'>&gt;_</text></svg>">
+<style>
+  :root {
+    --bg: #0f1419;
+    --surface: #1a2332;
+    --border: #2d3a4f;
+    --text: #e8edf4;
+    --text-dim: #8b9bb4;
+    --accent: #4ecdc4;
+    --accent-dim: rgba(78, 205, 196, 0.15);
+    --error: #ff6b6b;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    flex: 1;
+    width: 100%;
+  }
+
+  /* ===== Navbar ===== */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .navbar-brand {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .navbar-links a {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-links a:hover {
+    color: var(--accent);
+  }
+
+  .navbar-links a.active {
+    color: var(--accent);
+  }
+
+  /* ===== Auth Card ===== */
+  .auth-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .auth-header .icon {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .auth-header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .auth-header p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+
+  /* ===== Form ===== */
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+    outline: none;
+  }
+
+  .form-group input:focus {
+    border-color: var(--accent);
+  }
+
+  .form-group input::placeholder {
+    color: var(--text-dim);
+    opacity: 0.6;
+  }
+
+  .form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+  }
+
+  .form-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+    cursor: pointer;
+  }
+
+  .form-options input[type="checkbox"] {
+    accent-color: var(--accent);
+  }
+
+  .form-options a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .form-options a:hover {
+    text-decoration: underline;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    font-family: inherit;
+  }
+
+  .btn-submit:hover {
+    opacity: 0.9;
+  }
+
+  /* ===== Auth Footer ===== */
+  .auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+
+  .auth-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .auth-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .container {
+      padding: 2rem 1.25rem;
+    }
+
+    .auth-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">~/dev</a>
+    <div class="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="Register.html">Register</a>
+    </div>
+  </nav>
+
+  <!-- Login Card -->
+  <div class="auth-card">
+    <div class="auth-header">
+      <div class="icon">$ login</div>
+      <h1>Welcome Back</h1>
+      <p>Sign in to your developer account</p>
+    </div>
+
+    <form onsubmit="return handleLogin(event)">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password" required>
+      </div>
+
+      <div class="form-options">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+        <a href="#" onclick="return toast('Password reset coming soon')">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-submit">Sign In</button>
+    </form>
+
+    <div class="auth-footer">
+      Don't have an account? <a href="Register.html">Register now</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function handleLogin(e) {
+    e.preventDefault();
+    var username = document.getElementById('username').value;
+    alert('Login successful, welcome ' + username + '! (Demo page, no backend)');
+    return false;
+  }
+
+  function toast(msg) {
+    alert(msg);
+    return false;
+  }
+</script>
+
+</body>
+</html>

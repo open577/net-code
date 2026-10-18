@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Developer Home</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f1419'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%234ecdc4' font-family='monospace'>&gt;_</text></svg>">
+<style>
+  :root {
+    --bg: #0f1419;
+    --surface: #1a2332;
+    --border: #2d3a4f;
+    --text: #e8edf4;
+    --text-dim: #8b9bb4;
+    --accent: #4ecdc4;
+    --accent-dim: rgba(78, 205, 196, 0.15);
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem;
+    flex: 1;
+  }
+
+  /* ===== Navbar ===== */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 0;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .navbar-brand {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .navbar-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .navbar-links a {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .navbar-links a:hover {
+    color: var(--accent);
+  }
+
+  .navbar-links a.btn-login {
+    color: var(--accent);
+  }
+
+  .navbar-links a.btn-register {
+    padding: 0.4rem 1rem;
+    background: var(--accent-dim);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    border-radius: 6px;
+    color: var(--accent);
+  }
+
+  .navbar-links a.btn-register:hover {
+    background: rgba(78, 205, 196, 0.25);
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    margin-bottom: 4rem;
+  }
+
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    max-width: 520px;
+  }
+
+  .tagline .highlight {
+    color: var(--accent);
+  }
+
+  /* ===== Sections ===== */
+  section {
+    margin-bottom: 3.5rem;
+  }
+
+  .section-label {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ===== Skills ===== */
+  .skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .skill-tag {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+    background: var(--accent-dim);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    border-radius: 6px;
+    color: var(--accent);
+    transition: all 0.2s ease;
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    background: rgba(78, 205, 196, 0.25);
+    transform: translateY(-1px);
+  }
+
+  /* ===== Projects ===== */
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .project-item {
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 0.2s ease;
+  }
+
+  .project-item:hover {
+    border-color: var(--accent);
+  }
+
+  .project-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .project-name .arrow {
+    color: var(--accent);
+    font-size: 0.9rem;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: all 0.2s ease;
+  }
+
+  .project-item:hover .arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .project-desc {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-text {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-family: "SF Mono", "Fira Code", Consolas, monospace;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-links a:hover {
+    color: var(--accent);
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .container {
+      padding: 2.5rem 1.25rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    .tagline {
+      font-size: 1rem;
+    }
+
+    .footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="navbar-brand">~/dev</a>
+    <div class="navbar-links">
+      <a href="Login.html" class="btn-login">Login</a>
+      <a href="Register.html" class="btn-register">Register</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="status-bar">
+      <span class="status-dot"></span>
+      <span>// coding in progress</span>
+    </div>
+    <h1>Hi, I'm a Developer</h1>
+    <p class="tagline">
+      Focused on <span class="highlight">C++ network programming</span> and low-level system development.
+      I enjoy understanding principles from source code and breaking complex problems into verifiable steps.
+    </p>
+  </div>
+
+  <!-- Skills -->
+  <section>
+    <div class="section-label">Tech Stack</div>
+    <div class="skills">
+      <span class="skill-tag">C++</span>
+      <span class="skill-tag">TCP / UDP</span>
+      <span class="skill-tag">Socket</span>
+      <span class="skill-tag">Linux</span>
+      <span class="skill-tag">Makefile</span>
+      <span class="skill-tag">GDB</span>
+      <span class="skill-tag">VS Code</span>
+      <span class="skill-tag">Git</span>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section>
+    <div class="section-label">Current Projects</div>
+    <div class="project-list">
+      <div class="project-item">
+        <div class="project-name">
+          TCP Server Framework
+          <span class="arrow">→</span>
+        </div>
+        <p class="project-desc">A multi-threaded network server based on the Reactor pattern, supporting event-driven callbacks.</p>
+      </div>
+      <div class="project-item">
+        <div class="project-name">
+          HTTP Protocol Parser
+          <span class="arrow">→</span>
+        </div>
+        <p class="project-desc">A lightweight HTTP/1.1 server built from scratch, handling request routing and response serialization.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p class="footer-text">© 2026 · Building the world with keyboard and coffee</p>
+    <div class="footer-links">
+      <a href="#" onclick="return toast('GitHub link coming soon')">GitHub</a>
+      <a href="#" onclick="return toast('Email link coming soon')">Email</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toast(msg) {
+    alert(msg);
+    return false;
+  }
+</script>
+
+</body>
+</html>
