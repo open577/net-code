@@ -36,6 +36,8 @@ public:
         LOG(LogLevel::DEBUG) << "套接字创建成功 " << _listensockfd;
 
         InetAddr local(_port);
+        int opt;
+        setsockopt(_listensockfd,SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt));
         int n = bind(_listensockfd, local.NetAddrPtr(), local.SockLen());
         if (n < 0)
         {

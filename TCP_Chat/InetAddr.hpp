@@ -20,17 +20,16 @@ public:
         memset(&_addr, 0, sizeof(_addr));
         _addr.sin_family = AF_INET;
         inet_pton(AF_INET, _ip.c_str(), &_addr.sin_addr);
-        _addr.sin_port = _port;
+        _addr.sin_port = htons(port);
     }
 
-    InetAddr(uint16_t port) :_port(port)
+    InetAddr(uint16_t port) : _port(port)
     {
         memset(&_addr, 0, sizeof(_addr));
         _addr.sin_family = AF_INET;
-        _addr.sin_port = _port;
+        _addr.sin_port = htons(port);
     }
 
-    
     bool operator==(InetAddr client)
     {
         return client._ip == this->_ip && client._port == this->_port;
