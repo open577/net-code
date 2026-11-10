@@ -49,11 +49,9 @@ public:
     {
     }
 
-    void Excepter() override
-    {
-    }
 
-    int GetSockFD()
+
+    int GetSockFd()override
     {
         return _listener->FD();
     }

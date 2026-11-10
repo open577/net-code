@@ -1,8 +1,10 @@
 #pragma once
 #include "Connaction.hpp"
 #include "InetAddr.hpp"
-
+class Reactor;
 #define SIZE 1024
+
+Reactor *EnableReadWrite();
 class Channel : public Connaction
 {
 public:
@@ -89,8 +91,16 @@ public:
                 }
             }
         }
+        GetOwer()->EnableReadWrite(_sockfd,true,true);
     }
 
+    void Excepter() override
+    {}
+
+    int GetSockFd()override
+    {
+        return _sockfd;
+    }
 private:
     int _sockfd;
     std::string _inbuffer;

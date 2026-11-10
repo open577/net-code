@@ -7,6 +7,10 @@
 #include <fcntl.h>
 
 #include "Socket.hpp"
+#include "Reactor.hpp"
+
+
+class Reactor;
 using namespace SocketModule;
 void SetNonBlock(int fd)
 {
@@ -21,7 +25,6 @@ void SetNonBlock(int fd)
 }
 using func_t = std::function<std::string(std::string &)>;
 
-class Reactor;
 
 class Connaction
 {

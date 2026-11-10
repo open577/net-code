@@ -10,14 +10,14 @@ class Epoller
 public:
     Epoller() : _epfd(-1)
     {
-        int n = epoll_create1(128);
-        if (n < 0)
+        _epfd = epoll_create(128);
+        if (_epfd < 0)
         {
-            LOG(LogLevel::ERROR) << "epoll_create1 error";
+            LOG(LogLevel::ERROR) << "epoll_create error";
             exit(EPOLL_CREATE_ERROR);
         }
 
-        LOG(LogLevel::ERROR) << "epoll_create1 success";
+        LOG(LogLevel::DEBUG) << "epoll_create1 success";
     }
 
     void ModEventHelper(int sockfd, uint32_t event, int oper)
@@ -31,7 +31,7 @@ public:
             LOG(LogLevel::ERROR) << sockfd << " epoll_ctl fiale ";
         }
 
-        LOG(LogLevel::ERROR) << sockfd << " epoll_ctl success ";
+        LOG(LogLevel::DEBUG) << sockfd << " epoll_ctl success ";
     }
 
     void AddEvent(int sockfd,uint32_t event)
@@ -47,7 +47,7 @@ public:
             LOG(LogLevel::ERROR) << sockfd << " epoll_delete fiale ";
         }
 
-        LOG(LogLevel::ERROR) << sockfd << " epoll_delete success ";
+        LOG(LogLevel::DEBUG) << sockfd << " epoll_delete success ";
     }
 
     void MouEvent(int sockfd,uint32_t event)
