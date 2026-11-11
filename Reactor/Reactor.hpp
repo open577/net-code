@@ -36,9 +36,9 @@ private:
         return _connection.empty();
     }
 
-    void LopOnce(int timeout)
+    int LopOnce(int timeout)
     {
-        _epol->WaitEvent(_res, res_num, timeout);
+        return _epol->WaitEvent(_res, res_num, timeout);
     }
 
     void Dispatcher(int n)
@@ -74,6 +74,7 @@ public:
     }
     void Loop()
     {
+        LOG(LogLevel::DEBUG)<<"进入 Loop模块";
         if (IsConnectionEmpty())
         {
             return;
@@ -82,15 +83,16 @@ public:
         _isrunning = true;
         while (_isrunning)
         {
-            int timeout = -1;
-            LopOnce(timeout);
-            Dispatcher(timeout);
+            int timeout = 1000;
+            int n=LopOnce(timeout);
+            Dispatcher(n);
         }
         _isrunning = false;
     }
 
     void AddConnection(std::shared_ptr<Connaction> &conn)
     {
+        sleep(1);
         if (IsConnectionExists(conn->GetSockFd()))
         {
             LOG(LogLevel::INFO) << "connection exits " << conn->GetSockFd();

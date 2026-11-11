@@ -63,7 +63,7 @@ namespace SocketModule
                 LOG(LogLevel::FATAL) << "创建套接字失败";
                 exit(SOCK_ERR);
             }
-            LOG(LogLevel::INFO) << "套接字创建成功";
+            LOG(LogLevel::INFO) << "套接字创建成功"<<_sockfd;
         }
 
         void BindOrDie(uint16_t port) override

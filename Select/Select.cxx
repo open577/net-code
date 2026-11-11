@@ -43,6 +43,8 @@ void SetNonBlock(int fd)
     int fl = fcntl(fd, F_GETFL);
     if (fl < 0)
     {
+        std::cout<<"Select fcntl"<<std::endl;
+
         perror("fcntl file\n");
         return;
     }

@@ -24,12 +24,16 @@ int main(int argc, char *argv[])
     }
 
     uint16_t port=std::stoi(argv[1]);
+    std::cout<<port<<std::endl;
     std::shared_ptr<Cal> cal = std::make_shared<Cal>();
+    LOG(LogLevel::DEBUG)<<"create cal";
 
     std::unique_ptr<Protocol> proto = std::make_unique<Protocol>([&cal](Request &res) -> Response
                                                                  { return cal->Enque(res); });
-    
+    LOG(LogLevel::DEBUG)<<"create proto";
     std::shared_ptr<Connaction> con = std::make_shared<Listener>(port);
+    LOG(LogLevel::DEBUG)<<"create con";
+
     con->RegisterFunc([&proto](std::string &inbuffer)->std::string{
         LOG(LogLevel::DEBUG)<<"进入匿名函数模块";
         std::string response_str;
@@ -38,8 +42,7 @@ int main(int argc, char *argv[])
         std::string package;
 
             if(proto->DeCode(inbuffer,&package))
-                return "";
-            
+                break;
             response_str+=package;
         }
 
